@@ -1,9 +1,9 @@
 package gex;
 
-public class OrRegex extends AbstractRegex {
+public class QuestionRegex extends AbstractRegex {
 	private final IRegex clause;
-	
-	public OrRegex(IRegex next, IRegex clause) {
+
+	public QuestionRegex(IRegex next, IRegex clause) {
 		super(next);
 		this.clause = clause;
 	}
@@ -14,6 +14,10 @@ public class OrRegex extends AbstractRegex {
 		if (newStart < 0) {
 			return matchNext(text, start, end);
 		}
-		return newStart;
+		int ret = matchNext(text, newStart, end);
+		if (ret >= 0) {
+			return ret;
+		}
+		return matchNext(text, start, end);
 	}
 }
